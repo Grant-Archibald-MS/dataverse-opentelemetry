@@ -16,11 +16,13 @@ The design goals of this sample are to:
 
 ## Future
 
-The following area could expand on this sample:
+The following area could be expanded on this sample to demonstrate other scenarios. This could include:
 
-1. Implement a Dataverse Exporter that shows how monitoring data could be stored in Dataverse.
+1. Implement a Dataverse Exporter using the [Extending the sdk](https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/docs/trace/extending-the-sdk#exporter) guidance to shows how monitoring data could be stored in Dataverse or other locations.
 
-2. Use of Power Platform Environment variables which exporters should be used e.g. Azure Monitor, OLTP exporter or Dataverse Exporter
+2. Use of Power Platform Environment variables which exporters should be used e.g. Azure Monitor, OLTP exporter or Dataverse Exporter.
+
+3. Demonstrate how to use customer managed key (CMK) to encrypt telemetry.
 
 ## Architecture
 
