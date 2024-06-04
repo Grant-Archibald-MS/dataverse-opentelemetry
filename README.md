@@ -34,6 +34,7 @@ Using Dataverse plugins and Open Telemetry is just one way of obtaining operatio
 
 | Component | Notes |
 |-----------|-------|
+| [Connect your Microsoft Copilot Studio bot to Application Insights](https://learn.microsoft.com/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?source=recommendations&tabs=webApp) | Log data to Application Insights with custom events |
 | [Analyze system-generated logs using Application Insights](https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/application-insights) | You can connect your canvas apps to Application Insights |
 | Power Apps Canvas and Custom Pages | Make use of [Trace()](https://learn.microsoft.com/power-platform/power-fx/reference/function-trace) function |
 | Power Pages | Make use of [Content Snippets](https://learn.microsoft.com/power-pages/configure/customize-content-snippets) for the [JavaScript code](https://learn.microsoft.com/azure/azure-monitor/app/javascript-sdk?tabs=javascriptwebsdkloaderscript#add-the-javascript-code)
