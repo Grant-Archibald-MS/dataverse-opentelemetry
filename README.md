@@ -47,11 +47,11 @@ The following table demonstrates the Trace Parent where the same operation id pe
 
 ## Example
 
-Demonstrating an example of this relationshops with a Power App that calls a Power Automate cloud flow and the resulting Application Insights, traces and dependency.
+Demonstrating an example of this relationships with a Power App that calls a Power Automate cloud flow and the resulting Application Insights, traces and dependency.
 
 ![Power Apps Test Application - Not started](./docs/media/01-sample-power-app-start.png)
 
-The test Power App has no Trace Parent when loaded. The user can then select the Send button. This action will call the Dataverse plugin 
+The test Power App has no Trace Parent when loaded. The user can then select the Send button. This action will call the Dataverse plugin. 
 
 ![Power Apps Test Application - Started](./docs/media/02-PowerApp-Step1.png)
 
@@ -67,4 +67,4 @@ The operation id that relates all these steps can be queries in Application Insi
 
 ![Application Insights Transaction Details](./docs/media/05-ApplicationInsights-TransactionDetails.png)
 
-And the details and relationship between the componenst be visualized.
+And the details and relationship between the components be visualized.
