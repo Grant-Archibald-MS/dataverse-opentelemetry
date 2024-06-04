@@ -30,7 +30,7 @@ Visualizing the end to end process could be shown in the following diagram
 
 Power Platform components like Power Apps, Power Automate, Dataverse Plugins and Microsoft Co-Pilot studio can be instrumented by calling the Dataverse Plugin.
 
-The plugin queries the Dataverse Environment for the connection string. The plugin then starts a unique operation will call the Dataverse Plugin which will return a unique Trace Parent consisting of a Trace Id and Span Id. Following calls pass in the initial Trace Paren, which will continue the same operation id and generate a new span id.
+The plugin queries the Dataverse Environment for the connection string. The plugin then starts a unique operation will call the Dataverse Plugin which will return a unique Trace Parent consisting of a Trace Id and Span Id. Following calls pass in the initial Trace Parent, which will continue the same operation id and generate a new span id.
 
 The Dataverse Plugin uses the .Net NuGet Open Telemetry provider to use the default Azure Monitor Exporter to generate trace and dependency records in Application Insights.
 
