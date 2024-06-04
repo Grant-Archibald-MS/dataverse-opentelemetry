@@ -40,6 +40,7 @@ Using Dataverse plugins and Open Telemetry is just one way of obtaining operatio
 | [Application Insights with Dataverse](https://learn.microsoft.com/en-us/power-platform/admin/telemetry-events-dataverse?source=recommendations) | Provides Requests, exceptions and dependencies. This appraoch covers Model Driven Applications and wider Dataverse insights.
 | [Telemetry within your plug-in code](https://learn.microsoft.com/power-platform/admin/telemetry-events-dataverse?source=recommendations#telemetry-within-your-plug-in-code) | Use if ILogger interface to write to application insights from a Dataverse Plugin |
 | [Application Insights with Power Automate](https://learn.microsoft.com/power-platform/admin/app-insights-cloud-flow) | Provides Requests and dependencies for monitoring of cloud flow executions, trigger and actions |
+| [Export data to Application Insights](https://learn.microsoft.com/en-us/power-platform/admin/set-up-export-application-insights) | To configure the Environment Dataverse and Power Automate data to export to a subscription in the same tenant as Power Platform |
 
 ## Future
 
@@ -50,6 +51,8 @@ The following area could be expanded on this sample to demonstrate other scenari
 2. Use of Power Platform Environment variables which exporters should be used. For example Azure Monitor, OLTP exporter or Dataverse Exporter.
 
 3. Demonstrate how to use customer managed key (CMK) to encrypt telemetry.
+
+4. Demonstrate how to make use of [Use managed identities for Dataverse plug-ins](https://learn.microsoft.com/en-us/power-platform/release-plan/2024wave1/power-platform-governance-administration/use-managed-identities-dataverse-plug-ins) to authenticate with Exporters.
 
 ## Architecture
 
