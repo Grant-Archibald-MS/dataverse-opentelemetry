@@ -30,7 +30,12 @@ The design goals of this sample are to:
 
 ## Comparison
 
-Using Dataverse plugins and Open Telemetry is just one way of obtaining operations insights on the execution of Power Platform components. Other approaches to consider of adding observability could include:
+Using Dataverse plugins and Open Telemetry is just one way of obtaining operations insights on the execution of Power Platform components.
+
+For and example of how out of the box Power Platform features can be used to observer Power Apps to connectors like Power Automate Cloud flows you can review the [Power Platform Distributed Tracing](./docs/PowerPlatformDistributedTracing.md) documentation.
+
+
+Other approaches to consider of adding observability could include:
 
 | Component | Notes |
 |-----------|-------|
@@ -54,6 +59,10 @@ The following area could be expanded on this sample to demonstrate other scenari
 3. Demonstrate how to use customer managed key (CMK) to encrypt telemetry.
 
 4. Demonstrate how to make use of [Use managed identities for Dataverse plug-ins](https://learn.microsoft.com/en-us/power-platform/release-plan/2024wave1/power-platform-governance-administration/use-managed-identities-dataverse-plug-ins) to authenticate with Exporters.
+
+5. Demonstrate how to obtain Power Apps Traceparent so that the Dataverse Plugin uses its operation id.
+
+6. Demonstrate how to persist the Traceparent in Dataverse for long running observability.
 
 ## Architecture
 
