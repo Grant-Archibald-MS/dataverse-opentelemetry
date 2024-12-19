@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DataversePlugin</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Grant Archibald</Authors>
+    <Company>Microsoft</Company>
+    <Description>A Dataverse plugin for logging account with tag</Description>
+    <PackageTags>Dataverse, Plugin</PackageTags>
+    <RepositoryUrl>https://github.com/Grant-Archibald-MS/dataverse-opentelemetry</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.56" />
+    <PackageReference Include="Microsoft.CrmSdk.XrmTooling.CoreAssembly" Version="9.1.1.65" />
+  </ItemGroup>
+
+</Project>
