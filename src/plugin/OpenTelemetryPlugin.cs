@@ -7,9 +7,6 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace Microsoft.Dataverse.Samples
 {
