@@ -1,4 +1,4 @@
-Use the following steps to register the plugin taht will use the tag to update the requested account name
+Use the following steps to register the plugin that will use the tag to update the requested account name
 
 1. Build the plugin
 

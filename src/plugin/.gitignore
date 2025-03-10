@@ -11,3 +11,5 @@
 *.binlog
 
 **/.vscode
+
+config.json
