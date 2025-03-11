@@ -48,7 +48,7 @@ if ( -not [string]::IsNullOrEmpty($customApiName) ) {
 
     $child = $childResponse.TraceParent
 
-    Write-Host "TraceParent (Child): $child"
+    Write-Host "TraceParent (Child - Via Tag): $child"
 
     # Add dependent data using message
     $testUrl = "${environmentUrl}api/data/v9.0/${customApiName}" 
@@ -69,7 +69,7 @@ if ( -not [string]::IsNullOrEmpty($customApiName) ) {
 
     $grandchild = $grandChildResponse.TraceParent
 
-    Write-Host "TraceParent (Grandchild): $grandchild"
+    Write-Host "TraceParent (Grandchild via Custom API Message): $grandchild"
 }
 
 if ( -not [string]::IsNullOrEmpty($entityName) ) {
