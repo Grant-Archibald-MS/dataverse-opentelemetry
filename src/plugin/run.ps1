@@ -5,14 +5,14 @@ $customApiName = $config.customApiName
 
 $token = (az account get-access-token --resource=$environmentUrl --query accessToken --output tsv)
 
-$testUrl = "${environmentUrl}api/data/v9.0/${customApiName}" #?tag=00-2d708f92ccca7d80ca0ba94bfc97f32a-df0cb752131c1561-01"
+$testUrl = "${environmentUrl}api/data/v9.0/${customApiName}" #?tag=00-9408ba64a337d07440b7efbf263b7bae-815572cbfd7088e2-00"
 
 $body = @{
     Source = "Sample"
     Stage = "1"
-    Level = "Debug"
+    Level = "Information"
     Message = "2"
-    # TraceParent = "00-2d708f92ccca7d80ca0ba94bfc97f32a-df0cb752131c1561-01"
+#    TraceParent = "00-9408ba64a337d07440b7efbf263b7bae-00b5ae3c5cecdbdd-00"
 }
 
 $jsonBody = $body | ConvertTo-Json

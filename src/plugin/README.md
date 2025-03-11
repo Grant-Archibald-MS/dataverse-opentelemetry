@@ -1,3 +1,9 @@
+# Overview
+The ApplicationInsightsPlugin is designed to enhance telemetry capabilities within a Dataverse environment by leveraging Application Insights. This plugin expects to be registered as a Custom API, which defines a Message. The Message is configured to allow both synchronous and asynchronous actions. Once the message is created, an additional step can be added to the plugin for the created message type to call Observability.
+
+## W3C TraceParent
+The W3C Trace Context standard defines a format for propagating trace information across different systems and components. The TraceParent is a key part of this standard, allowing end-to-end tracing of transactions across multiple components. When a TraceParent is supplied, it creates a dependency record, enabling detailed tracking and correlation of telemetry data. For more information on the [W3C Trace Context standard](https://www.w3.org/TR/trace-context/)
+
 ## Build
 
 Use the following commands to build the plugin 
@@ -24,8 +30,6 @@ cd src\plugin
 ```pwsh
 dotnet build --configuration Release
 ```
-
-  > IMPORTANT: Versions of OpenTelemetry **greater than 1.8.0** have compatibility issues with being imported into Dataverse s Plugin solution
 
 ## Registration
 
@@ -84,7 +88,7 @@ After you have defined the message to associate the plugin with the registered m
 
 4. Select **Register**
 
-5. Select you message. For example **cat_OpenTelementry**
+5. Select you message. For example **cat_Telemetry**
 
 6. Select **PostOperation** for Event Pipeline Stage of Execution.
 
@@ -93,9 +97,13 @@ After you have defined the message to associate the plugin with the registered m
 ```json
 {
     "Level":"Information",
-    "EnableOpenTelemetry":true
+    "Enabled":true
 }
 ```
+
+  > NOTES:
+  > 1. You can use Level to control the level of information written
+  > 2. Enabled will control if data is written to Application Insights
 
 8. Add the Connection string for Application Insights to Secure Configuration
 
@@ -110,7 +118,7 @@ To verify the plugin
 ```json
 {
     "environmentUrl": "https://contoso.crm.dynamics.com/",
-    "customApiName": "contoso_OpenTelemetry"
+    "customApiName": "contoso_Telemetry"
 }
 ```
 

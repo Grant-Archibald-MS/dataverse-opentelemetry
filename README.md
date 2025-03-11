@@ -1,6 +1,6 @@
 # Dataverse Open Telemetry sample
 
-This project contains an example of Dataverse plugin integration with [Open Telemetry](https://opentelemetry.io/). OpenTelemetry is a collection of APIs, SDKs, and tools. Use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) to help you analyze your software’s performance and behavior.
+This project contains an example of Dataverse plugin integration with [Open Telemetry](https://opentelemetry.io/). OpenTelemetry is a collection of W3C Standads, APIs, SDKs, and tools. Use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) to help you analyze your software’s performance and behavior.
 
 ## Why Open Telemetry?
 
@@ -48,6 +48,7 @@ Other approaches to consider of adding observability could include:
 | [Telemetry within your plug-in code](https://learn.microsoft.com/power-platform/admin/telemetry-events-dataverse?source=recommendations#telemetry-within-your-plug-in-code) | Use if ILogger interface to write to application insights from a Dataverse Plugin |
 | [Application Insights with Power Automate](https://learn.microsoft.com/power-platform/admin/app-insights-cloud-flow) | Provides Requests and dependencies for monitoring of cloud flow executions, trigger and actions |
 | [Export data to Application Insights](https://learn.microsoft.com/en-us/power-platform/admin/set-up-export-application-insights) | To configure the Environment Dataverse and Power Automate data to export to a subscription in the same tenant as Power Platform |
+| [Write Telemetry to your Application Insights resource using ILogger (Dataverse)](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/application-insights-ilogger) | Information about writing logs using ILogger. Note: There's currently no setting to control what level of logs are written
 
 ## Future
 
