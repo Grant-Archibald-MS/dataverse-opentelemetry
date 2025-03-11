@@ -7,5 +7,7 @@
     {
         public bool Enabled { get; set; }
         public string LogLevel { get; set; }
+        public string OutputField { get; set; } = "TraceParent";
+        public bool Append { get; set; } = false;
     }
 }

@@ -6,13 +6,12 @@ using Microsoft.Xrm.Sdk.PluginTelemetry;
 using System;
 using System.Diagnostics;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Microsoft.Dataverse.Samples
 {
     /// <summary>
     /// Example that demonstrates the use of Application Insights in a Dataverse plugin.
-    /// This class provides an implementation of a Dataverse plugin that utilizes both the out-of-the-box ILogger from Microsoft.Xrm.Sdk and Application Insights for enhanced telemetry capabilities.
+    /// This class provides an implementation of a Dataverse plugin that created Dependancy and Trace messaged in Application Insights for configurable telemetry capabilities.
     /// </summary>
     public class ApplicationInsightsPlugin : PluginBase
     {
@@ -22,6 +21,9 @@ namespace Microsoft.Dataverse.Samples
         private LogLevel defaultLogLevel = LogLevel.Information;
         // Flag to enable or disable Application Insights
         private bool _enabled = false;
+        private string outputFieldName = "TraceParent";
+
+        private bool _append = false;
 
         /// <summary>
         /// Constructor for the ApplicationInsightsPlugin class.
@@ -40,6 +42,11 @@ namespace Microsoft.Dataverse.Samples
                 {
                     _enabled = config.Enabled;
                     defaultLogLevel = Enum.TryParse(config.LogLevel, out LogLevel logLevel) ? logLevel : LogLevel.Information;
+                    if (!string.IsNullOrEmpty(config.OutputField))
+                    {
+                        outputFieldName = config.OutputField;
+                    }
+                    _append = config.Append;
                 }
             }
         }
@@ -55,39 +62,20 @@ namespace Microsoft.Dataverse.Samples
                 throw new ArgumentNullException(nameof(localPluginContext));
             }
 
-            // Get the ILogger instance from Microsoft.Xrm.Sdk
-            var pluginLogger = (Xrm.Sdk.PluginTelemetry.ILogger)localPluginContext.ServiceProvider.GetService(typeof(Xrm.Sdk.PluginTelemetry.ILogger));
-
             // Get the plugin execution context
             var context = localPluginContext.PluginExecutionContext;
 
             try
             {
-                // Extract input parameters from the context
-                var source = context.InputParameters["Source"] as string;
-                var stage = context.InputParameters["Stage"] as string;
-                var pluginLevel = Xrm.Sdk.PluginTelemetry.LogLevel.Information;
-                Enum.TryParse(context.InputParameters["Level"] as string, out pluginLevel);
-                var message = context.InputParameters["Message"] as string;
-                var traceParent = context.InputParameters.Contains("TraceParent") ? (string)context.InputParameters["TraceParent"] : string.Empty;
+                var mapper = new ContextMapper();
+                var defaultValues = mapper.GetDefaultValues(context, out string traceParent);
 
-                // Check if the trace parent is in the shared variables
-                if (string.IsNullOrEmpty(traceParent)) {
-                    if (context.SharedVariables.ContainsKey("tag") && !string.IsNullOrEmpty(context.SharedVariables["tag"] as string))
-                    {
-                        traceParent = context.SharedVariables["tag"] as string;
-                    }
-                }
-
-                context.OutputParameters["TraceParent"] = traceParent;
-
-                // Log the message using both Application Insights and ILogger
-                LogWithApplicationInsightsAsync(source, stage, pluginLevel, message, traceParent, context);
-                TraceWithILoggerAsync(pluginLogger, pluginLevel, message, traceParent);
+                // Log the message using both Application Insights
+                LogWithApplicationInsightsAsync(defaultValues.Source, defaultValues.Stage, defaultValues.Level, defaultValues.Message, traceParent, context);
             }
             catch (Exception ex)
             {
-                context.OutputParameters["TraceParent"] = "ERROR - " + ex.ToString();
+                context.OutputParameters[outputFieldName] = "ERROR - " + ex.ToString();
             }
         }
 
@@ -149,8 +137,7 @@ namespace Microsoft.Dataverse.Samples
                     Context = { Operation = { ParentId = dependencyTelemetry.Id, Id = activity.Id } }
                 };
 
-                // Update the TraceParent output parameter with the new activity ID
-                context.OutputParameters["TraceParent"] = activity.Id;
+                SetOutputValue(context, activity.Id);
 
                 // Track the trace telemetry
                 telemetryClient.TrackTrace(traceTelemetry);
@@ -169,7 +156,7 @@ namespace Microsoft.Dataverse.Samples
                 };
 
                 // Update the TraceParent output parameter with the new activity ID
-                context.OutputParameters["TraceParent"] = activity.Id;
+                SetOutputValue(context, activity.Id);
 
                 // Track the trace telemetry
                 telemetryClient.TrackTrace(traceTelemetry);
@@ -179,6 +166,29 @@ namespace Microsoft.Dataverse.Samples
             telemetryClient.Flush();
         }
 
+        /// <summary>
+        /// Sets the output value for the TraceParent field in the plugin execution context.
+        /// </summary>
+        /// <param name="context">The current context to add the variables</param>
+        /// <param name="activityId">The new activity id</param>
+        private void SetOutputValue(IPluginExecutionContext context, string activityId)
+        {
+            if (context.OutputParameters.Contains(outputFieldName))
+            {
+                if (_append)
+                {
+                    context.OutputParameters[outputFieldName] += " " + activityId;
+                }
+                else
+                {
+                    context.OutputParameters[outputFieldName] = activityId;
+                }
+            }
+            else
+            {
+                context.OutputParameters[outputFieldName] = activityId;
+            }
+        }
 
         /// <summary>
         /// Converts the Xrm.Sdk.PluginTelemetry.LogLevel to Application Insights SeverityLevel.
@@ -200,19 +210,6 @@ namespace Microsoft.Dataverse.Samples
                 default:
                     return SeverityLevel.Information;
             }
-        }
-
-        /// <summary>
-        /// Logs messages using the out-of-the-box ILogger from Microsoft.Xrm.Sdk.
-        /// </summary>
-        /// <param name="pluginLogger">ILogger instance from Microsoft.Xrm.Sdk.</param>
-        /// <param name="level">Log level for ILogger.</param>
-        /// <param name="message">Message to be logged.</param>
-        /// <param name="traceParent">Trace parent for distributed tracing.</param>
-        private void TraceWithILoggerAsync(Xrm.Sdk.PluginTelemetry.ILogger pluginLogger, Xrm.Sdk.PluginTelemetry.LogLevel level, string message, string traceParent)
-        {
-            var logMessage = string.IsNullOrEmpty(traceParent) ? message : $"{message} - TraceParent: {traceParent}";
-            pluginLogger.Log(level, logMessage);
         }
     }
 }

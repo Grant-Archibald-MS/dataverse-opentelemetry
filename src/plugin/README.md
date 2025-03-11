@@ -84,9 +84,9 @@ After you have defined the message to associate the plugin with the registered m
 
 2. Select **Display by Package**
 
-3. Select your plugin
+3. Select your plugin to want to register for example **ApplicationInsightsPlugin**
 
-4. Select **Register**
+4. Select **Register New Step**
 
 5. Select you message. For example **cat_Telemetry**
 
@@ -109,16 +109,43 @@ After you have defined the message to associate the plugin with the registered m
 
 9. Select **Register New Step**
 
+## Extending the example with Entity messages
+
+You can also extend the plugin to apply to dataverse entities using the following example
+
+1. In the plugin registration tool select the plugin
+
+2. Select **Register New Step**
+
+3. Select message type **Create**
+
+4. Select primary entity. For example **account**
+
+5. Choose when run for example **PostOperation** 
+
+6. Choose execution mode. For example **Asynchronous**
+
+7. Enter a unsecure configuration with Level of Information, Enabled and Output field
+
+```json
+{
+    "Level":"Information",
+    "Enabled":true,
+    "OutputField": "Message"
+}
+```
+
 ## Verify
 
 To verify the plugin
 
-1. Create config file with correct environment and API Name imported as
+1. Create config file with correct environment and API Name imported and optional entity to test
 
 ```json
 {
     "environmentUrl": "https://contoso.crm.dynamics.com/",
-    "customApiName": "contoso_Telemetry"
+    "customApiName": "contoso_Telemetry",
+    "entityName": "accounts"
 }
 ```
 
@@ -128,7 +155,7 @@ To verify the plugin
 az logout
 ```
 
-3. Login to Azure CLI with user account or Sevice Principal that has rights to run the Plugin
+3. Login to Azure CLI with user account or Service Principal that has rights to run the Plugin
 
 ```
 az login --use-device-code --allow-no-subscriptions
@@ -139,3 +166,6 @@ az login --use-device-code --allow-no-subscriptions
 ```
 ./run.ps1
 ```
+
+5. Lookup in Application Insights by the operation id
+
