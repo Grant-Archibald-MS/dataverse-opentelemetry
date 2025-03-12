@@ -1,0 +1,7 @@
+config.json
+
+**/*.class
+**/*.jar
+**/*.war
+**/*.ear
+**/*.lst
